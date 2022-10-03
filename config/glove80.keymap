@@ -219,14 +219,14 @@
             bindings = <&kp>;
         };
 
-        shift: shift { 
-            compatible = "zmk,behavior-hold-tap"; 
-            label = "SHIFT"; 
-            #binding-cells = <2>; 
-            flavor = "hold-preferred"; 
-            tapping-term-ms = <200>; 
-            global-quick-tap; 
-            bindings = <&kp>, <&caps_word>; 
+        shift: shift {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SHIFT";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            global-quick-tap;
+            bindings = <&kp>, <&caps_word>;
         };
 
         // shifting Numberic Keypad "2" gives "<"
@@ -346,7 +346,7 @@
     };
  };
 
- 
+
 / {
     /* Automatically generated keymap */
     keymap {
@@ -410,7 +410,7 @@
 
         layer_symbol_left {
             bindings = <
- &kp C_BRI_DN  &kp C_BRI_UP  &kp C_PREV  &kp C_NEXT  &kp C_PP                                                                    &trans  &trans  &trans  &trans  &trans 
+ &kp C_BRI_DN  &kp C_BRI_UP  &kp C_PREV  &kp C_NEXT  &kp C_PP                                                                    &trans  &trans  &trans  &trans  &trans
        &trans         &none       &none       &none     &none   &kp HOME                                                 &trans  &trans  &trans  &trans  &trans  &trans
        &trans      &kp EXCL      &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                 &trans  &trans  &trans  &trans  &trans  &trans
        &trans     &kp CARET    &kp AMPS    &kp LBKT  &kp LBRC   &kp LPAR                                                  &kp J   &kp K  &trans  &trans  &trans  &trans
