@@ -99,8 +99,6 @@
 
 /* Custom Defined Behaviors */
 / {
-
-     
     /* lsyers */
     #define L_BASE 0
     #define L_SYMBOL_LED 1
@@ -108,6 +106,9 @@
     #define L_SYMBOL 3
     #define L_MOVEMENT 4
 
+/*****************************************************************************/
+                                /* Behaviors */
+/*****************************************************************************/
     // generates a tap-dance behavior
     #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
     /omit-if-no-ref/ NAME: NAME { \
@@ -120,8 +121,8 @@
 
     behaviors {
         // activate other layers
-        TAP_DANCE(td_symbol, 199, &mo L_SYMBOL, &to L_SYMBOL)
-        TAP_DANCE(td_movement, 199, &mo L_MOVEMENT, &to L_MOVEMENT)
+        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL)
+        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT)
 
         // behavior for the left shift key
         // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
@@ -167,13 +168,9 @@
 
 
 /*****************************************************************************/
-
                                 /* Key Positions */
-
 /*****************************************************************************/
-
 /* Use these key positions for Hold Tap hold-trigger-key-positions and Combos
-
           .----.----.----.                                                  .----.----.----.
 .----.----|  2 |  3 |  4 |                                                  |  5 |  6 |  7 |----.----.
 |  0 |  1 |----+----+----+----.                                        .----+----+----+----|  8 |  9 |
@@ -193,6 +190,9 @@
                                       '----'              '----'
 */
 
+/*****************************************************************************/
+                                /* Combos */
+/*****************************************************************************/
     combos {
         compatible = "zmk,combos";
 
@@ -229,6 +229,9 @@
         };
    };
 
+/*****************************************************************************/
+                            /* Condiional Layers */
+/*****************************************************************************/
     /* Helper for defining conditional layers */
     #define LAYER_CONDITION(NAME, IF, THEN) \
         NAME { \
