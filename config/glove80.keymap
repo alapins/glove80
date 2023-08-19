@@ -46,60 +46,6 @@
             bindings
                 = <&rgb_ug RGB_STATUS>;
         };
-    };
-
-    macros {
-        bt_0: bt_profile_macro_0 {
-            label = "BT_0";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 0>;
-        };
-    };
-
-    macros {
-        bt_1: bt_profile_macro_1 {
-            label = "BT_1";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 1>;
-        };
-    };
-
-    macros {
-        bt_2: bt_profile_macro_2 {
-            label = "BT_2";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 2>;
-        };
-    };
-
-    macros {
-        bt_3: bt_profile_macro_3 {
-            label = "BT_3";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&out OUT_BLE>,
-                  <&bt BT_SEL 3>;
-        };
-    };
-
-    macros {
-        rgb_ug_status_macro: rgb_ug_status_macro_0 {
-            label = "RGB_UG_STATUS";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&rgb_ug RGB_STATUS>;
-        };
 
         bt_0: bt_profile_macro_0 {
             label = "BT_0";
@@ -162,17 +108,18 @@
     #define L_SYMBOL 3
     #define L_MOVEMENT 4
 
-    behaviors {
-        // generates a tap-dance behavior
-        #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
-        /omit-if-no-ref/ NAME: NAME { \
-            compatible = "zmk,behavior-tap-dance"; \
-            label = STRINGIFY(TD_##NAME); \
-            #binding-cells = <-1>; \
-            tapping-term-ms = <TERM>; \
-            bindings = <BINDING0>, <BINDING2>; \
-        }
+    // generates a tap-dance behavior
+    #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
+    /omit-if-no-ref/ NAME: NAME { \
+        compatible = "zmk,behavior-tap-dance"; \
+        label = STRINGIFY(TD_##NAME); \
+        #binding-cells = <-1>; \
+        tapping-term-ms = <TERM>; \
+        bindings = <BINDING0>, <BINDING2>; \
+    }
 
+    behaviors {
+        // activate other layers
         TAP_DANCE(td_symbol, 199, &mo L_SYMBOL, &to L_SYMBOL)
         TAP_DANCE(td_movement, 199, &mo L_MOVEMENT, &to L_MOVEMENT)
 
@@ -198,6 +145,7 @@
             keep-mods = <(MOD_RSFT)>;
         };
 
+        // shifting Numberic Keypad "2" gives "<"
         two_gt: two_gt {
             compatible = "zmk,behavior-mod-morph";
             label = "TWO_GT";
@@ -206,6 +154,7 @@
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 
+        // shifting Numberic Keypad "3" gives ">"
         three_gt: three_gt {
             compatible = "zmk,behavior-mod-morph";
             label = "THREE_GT";
@@ -217,14 +166,32 @@
 
 
 
-    /* Left hand key positions for use with right hand mods */
-    #define KEYBOARD_KEYS \
-        0  1  2  3  4                                    5  6  7  8  9 \
-        10 11 12 13 14 15                            16 17 18 19 20 21 \
-        22 23 24 25 26 27                            28 29 30 31 32 33 \
-        34 35 36 37 38 39                            40 41 42 43 44 45 \
-        46 47 48 49 50 51    52 53 54    55 56 57    58 59 60 61 62 63 \
-        64 65 66 67 68       69 70 71    72 73 74       75 76 77 78 79
+/*****************************************************************************/
+
+                                /* Key Positions */
+
+/*****************************************************************************/
+
+/* Use these key positions for Hold Tap hold-trigger-key-positions and Combos
+
+          .----.----.----.                                                  .----.----.----.
+.----.----|  2 |  3 |  4 |                                                  |  5 |  6 |  7 |----.----.
+|  0 |  1 |----+----+----+----.                                        .----+----+----+----|  8 |  9 |
+|----|----| 12 | 13 | 14 | 15 |                                        | 16 | 17 | 18 | 19 |----|----|
+| 10 | 11 |----+----+----+----|                                        |----+----+----+----| 20 | 21 |
+|----|----| 24 | 25 | 26 | 27 |                                        | 28 | 29 | 30 | 31 |----|----|
+| 22 | 23 |----+----+----+----|                                        |----+----+----+----| 32 | 33 |
+|----|----| 36 | 37 | 38 | 39 |                                        | 40 | 41 | 42 | 43 |----|----|
+| 34 | 35 |----+----+----+----|                                        |----+----+----+----| 44 | 45 |
+|----|----| 48 | 49 | 50 | 51 |                                        | 58 | 59 | 60 | 61 |----|----|
+| 46 | 47 |----+----+----+----'                                        '----+----+----+----| 62 | 63 |
+|----|----| 66 | 67 | 68 |       .----.                        .----.       | 75 | 76 | 77 |----|----|
+| 64 | 65 |----'----'----'  .----| 52 |----.              .----| 57 |----.  '----'----'----| 78 | 79 |
+'----'----'                 | 69 |----| 53 |----.    .----| 56 |----| 74 |                 '----'----'
+                            '----| 70 |----| 54 |    | 55 |----| 73 |----'
+                                 '----| 71 |----'    '----| 72 |----'
+                                      '----'              '----'
+*/
 
     combos {
         compatible = "zmk,combos";
@@ -261,9 +228,7 @@
             bindings = <&kp EQUAL>, <&kp GREATER_THAN>;
         };
    };
-};
- 
- / {
+
     /* Helper for defining conditional layers */
     #define LAYER_CONDITION(NAME, IF, THEN) \
         NAME { \
