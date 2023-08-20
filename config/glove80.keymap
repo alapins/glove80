@@ -119,6 +119,28 @@
                 , <&kp MACRO_PLACEHOLDER>
                 ;
         };
+        left_arrow: left_arrow {
+            compatible = "zmk,behavior-macro-one-param";
+            label = "LEFT_ARROW";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &kp LESS_THAN>
+                , <&macro_tap &kp MACRO_PLACEHOLDER>
+                ;
+        };
+        right_arrow: right_arrow {
+            compatible = "zmk,behavior-macro-one-param";
+            label = "RIGHT_ARROW";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &kp MACRO_PLACEHOLDER>
+                , <&macro_tap &kp GREATER_THAN>
+                ;
+        };
 
     };
 /*****************************************************************************/
@@ -234,7 +256,7 @@
             timeout-ms = <65>;
             key-positions = <60 44>;
             layers = <L_SYMBOL>;
-            bindings = <&kp LESS_THAN KP_MINUS>;
+            bindings = <&left_arrow KP_MINUS>;
         };
 
         // -> on num layer
@@ -242,7 +264,7 @@
             timeout-ms = <65>;
             key-positions = <61 44>;
             layers = <L_SYMBOL>;
-            bindings = <&kp KP_MINUS GREATER_THAN>;
+            bindings = <&right_arrow KP_MINUS>;
         };
 
         // <= on num layer
@@ -250,7 +272,7 @@
             timeout-ms = <65>;
             key-positions = <60 40>;
             layers = <L_SYMBOL>;
-            bindings = <&kp LESS_THAN EQUAL>;
+            bindings = <&left_arrow EQUAL>;
         };
 
         // => on num layer
@@ -258,7 +280,7 @@
             timeout-ms = <65>;
             key-positions = <61 40>;
             layers = <L_SYMBOL>;
-            bindings = <&kp EQUAL GREATER_THAN>;
+            bindings = <&right_arrow EQUAL>;
         };
    };
 
