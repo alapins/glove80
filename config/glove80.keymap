@@ -124,8 +124,8 @@
 
     behaviors {
         // activate other layers
-        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
-        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
+        TAP_DANCE(td_symbol, 200, &mo 3, &to 3);
+        TAP_DANCE(td_movement, 200, &mo 4, &to 4);
 
         // behavior for the left shift key
         // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
