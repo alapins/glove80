@@ -107,26 +107,9 @@
     #define L_MOVEMENT 4
 
 /*****************************************************************************/
-                                /* Behaviors */
+                                /* Macros */
 /*****************************************************************************/
-    // #define trick to convert plain word to string
-    #define STRINGIFY(S) #S
-
-    // generates a tap-dance behavior
-    #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
-    /omit-if-no-ref/ NAME: NAME { \
-        compatible = "zmk,behavior-tap-dance"; \
-        label = STRINGIFY(TD_##NAME); \
-        #binding-cells = <0>; \
-        tapping-term-ms = <TERM>; \
-        bindings = <BINDING0>, <BINDING2>; \
-    }
-
-    behaviors {
-        // activate other layers
-        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
-        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
-
+    macros {
         // custom sticky key behavior
         /omit-if-no-ref/ skp: sticky_keypress {
             compatible = "zmk,behavior-sticky-key";
@@ -156,6 +139,28 @@
                 , <&kp MACRO_PLACEHOLDER>
                 ;
         };
+
+    };
+/*****************************************************************************/
+                                /* Behaviors */
+/*****************************************************************************/
+    // #define trick to convert plain word to string
+    #define STRINGIFY(S) #S
+
+    // generates a tap-dance behavior
+    #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
+    /omit-if-no-ref/ NAME: NAME { \
+        compatible = "zmk,behavior-tap-dance"; \
+        label = STRINGIFY(TD_##NAME); \
+        #binding-cells = <0>; \
+        tapping-term-ms = <TERM>; \
+        bindings = <BINDING0>, <BINDING2>; \
+    }
+
+    behaviors {
+        // activate other layers
+        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
+        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
 
         // behavior for the left shift key
         // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
