@@ -117,7 +117,7 @@
     /omit-if-no-ref/ NAME: NAME { \
         compatible = "zmk,behavior-tap-dance"; \
         label = STRINGIFY(TD_##NAME); \
-        #binding-cells = <-1>; \
+        #binding-cells = <0>; \
         tapping-term-ms = <TERM>; \
         bindings = <BINDING0>, <BINDING2>; \
     }
@@ -132,7 +132,7 @@
         /omit-if-no-ref/ lshift: lshift {
             compatible = "zmk,behavior-mod-morph";
             label = "LSHIFT";
-            #binding-cells = <-1>;
+            #binding-cells = <0>;
             bindings = <&skp LSHFT>, <&unsk LSHFT>;
             mods = <(MOD_LSFT)>;
             keep-mods = <(MOD_LSFT)>;
@@ -143,7 +143,7 @@
         /omit-if-no-ref/ rshift: rshift {
             compatible = "zmk,behavior-mod-morph";
             label = "RSHIFT";
-            #binding-cells = <-1>;
+            #binding-cells = <0>;
             bindings = <&skp RSHFT>, <&unsk RSHFT>;
             mods = <(MOD_RSFT)>;
             keep-mods = <(MOD_RSFT)>;
