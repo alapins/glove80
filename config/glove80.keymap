@@ -142,6 +142,11 @@
         TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
         TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
 
+        /* Let Caps Word continue when typing underscores */
+        behavior_caps_word {
+            continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
+        };
+
         // custom sticky key behavior
         /omit-if-no-ref/ skp: sticky_keypress {
             compatible = "zmk,behavior-sticky-key";
@@ -158,7 +163,7 @@
             compatible = "zmk,behavior-mod-morph";
             label = "LSHIFT";
             #binding-cells = <0>;
-            bindings = <&skp LSHFT>, <&unsk LSHFT>;
+            bindings = <&kp LSHFT>, <&caps_word>;
             mods = <(MOD_LSFT)>;
             keep-mods = <(MOD_LSFT)>;
         };
@@ -169,7 +174,7 @@
             compatible = "zmk,behavior-mod-morph";
             label = "RSHIFT";
             #binding-cells = <0>;
-            bindings = <&skp RSHFT>, <&unsk RSHFT>;
+            bindings = <&kp RSHFT>, <&caps_word>;
             mods = <(MOD_RSFT)>;
             keep-mods = <(MOD_RSFT)>;
         };
@@ -229,7 +234,7 @@
             timeout-ms = <65>;
             key-positions = <60 44>;
             layers = <L_SYMBOL>;
-            bindings = <&kp LESS_THAN>, <&kp KP_MINUS>;
+            bindings = <&kp LESS_THAN KP_MINUS>;
         };
 
         // -> on num layer
@@ -237,7 +242,7 @@
             timeout-ms = <65>;
             key-positions = <61 44>;
             layers = <L_SYMBOL>;
-            bindings = <&kp KP_MINUS>, <&kp GREATER_THAN>;
+            bindings = <&kp KP_MINUS GREATER_THAN>;
         };
 
         // <= on num layer
@@ -245,7 +250,7 @@
             timeout-ms = <65>;
             key-positions = <60 40>;
             layers = <L_SYMBOL>;
-            bindings = <&kp LESS_THAN>, <&kp EQUAL>;
+            bindings = <&kp LESS_THAN EQUAL>;
         };
 
         // => on num layer
@@ -253,7 +258,7 @@
             timeout-ms = <65>;
             key-positions = <61 40>;
             layers = <L_SYMBOL>;
-            bindings = <&kp EQUAL>, <&kp GREATER_THAN>;
+            bindings = <&kp EQUAL GREATER_THAN>;
         };
    };
 
