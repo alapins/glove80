@@ -109,6 +109,9 @@
 /*****************************************************************************/
                                 /* Behaviors */
 /*****************************************************************************/
+    // #define trick to convert plain word to string
+    #define STRINGIFY(S) #S
+
     // generates a tap-dance behavior
     #define TAP_DANCE(NAME, TERM, BINDING0, BINDING2) \
     /omit-if-no-ref/ NAME: NAME { \
