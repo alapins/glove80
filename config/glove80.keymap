@@ -124,8 +124,38 @@
 
     behaviors {
         // activate other layers
-        TAP_DANCE(td_symbol, 200, &mo 3, &to 3);
-        TAP_DANCE(td_movement, 200, &mo 4, &to 4);
+        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
+        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
+
+        // custom sticky key behavior
+        /omit-if-no-ref/ skp: sticky_keypress {
+            compatible = "zmk,behavior-sticky-key";
+            label = "STICKY_KEYPRESS";
+            #binding-cells = <1>;
+            release-after-ms = <1000>;
+            quick-release;
+            bindings = <&kp>;
+        };
+
+        // unstickies a sticky key and then holds it
+        // parameter 1: key code
+        unsk: unsticky_key {
+            compatible = "zmk,behavior-macro-one-param";
+            label = "UNSTICKY_KEY";
+            #binding-cells = <1>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &kp K_CANCEL>
+                , <&macro_press>
+                , <&macro_param_1to1>
+                , <&kp MACRO_PLACEHOLDER>
+                , <&macro_pause_for_release>
+                , <&macro_release>
+                , <&macro_param_1to1>
+                , <&kp MACRO_PLACEHOLDER>
+                ;
+        };
 
         // behavior for the left shift key
         // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
