@@ -127,6 +127,7 @@
             tap-ms = <30>;
             bindings
                 = <&macro_tap &kp LESS_THAN>
+                , <&macro_param_1to1>
                 , <&macro_tap &kp MACRO_PLACEHOLDER>
                 ;
         };
@@ -138,6 +139,7 @@
             tap-ms = <30>;
             bindings
                 = <&macro_tap &kp MACRO_PLACEHOLDER>
+                , <&macro_param_1to1>
                 , <&macro_tap &kp GREATER_THAN>
                 ;
         };
