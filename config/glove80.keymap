@@ -161,16 +161,6 @@
         bindings = <BINDING0>, <BINDING2>; \
     }
 
-    #define SHIFT(NAME, BINDING) \
-    NAME: NAME { \
-            compatible = "zmk,behavior-hold-tap"; \
-            label = "LSHIFT"; \
-            #binding-cells = <0>; \
-            flavor = "hold-preferred"; \
-            tapping-term-ms = <200>; \
-            global-quick-tap; \
-            bindings = <&kp BINDING>, <&caps_word>; \
-    }
     behaviors {
         // activate other layers
         TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
@@ -191,8 +181,25 @@
             bindings = <&kp>;
         };
 
-        SHIFT(lshift, LSHIFT);
-        SHIFT(rshift, RSHIFT);
+        rshift: rshift { \
+            compatible = "zmk,behavior-hold-tap"; \
+            label = "RSHIFT"; \
+            #binding-cells = <0>; \
+            flavor = "hold-preferred"; \
+            tapping-term-ms = <200>; \
+            global-quick-tap; \
+            bindings = <&kp RSHFT>, <&caps_word>; \
+        }
+
+        lshift: lshift { \
+            compatible = "zmk,behavior-hold-tap"; \
+            label = "LSHIFT"; \
+            #binding-cells = <0>; \
+            flavor = "hold-preferred"; \
+            tapping-term-ms = <200>; \
+            global-quick-tap; \
+            bindings = <&kp LSHFT>, <&caps_word>; \
+        }
 
         // // behavior for the left shift key
         // // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
