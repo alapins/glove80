@@ -162,14 +162,14 @@
     }
 
     #define SHIFT(NAME, BINDING) \
-     NAME: NAME { \
+    NAME: NAME { \
             compatible = "zmk,behavior-hold-tap"; \
             label = "LSHIFT"; \
             #binding-cells = <1>; \
             flavor = "hold-preferred"; \
             tapping-term-ms = <200>; \
             global-quick-tap; \
-            bindings = <&kp>, <&caps_word>; \
+            bindings = <&kp BINDING>, <&caps_word>; \
     }
     behaviors {
         // activate other layers
