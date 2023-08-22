@@ -161,6 +161,16 @@
         bindings = <BINDING0>, <BINDING2>; \
     }
 
+    #define SHIFT(NAME, BINDING) \
+     NAME: NAME { \
+            compatible = "zmk,behavior-hold-tap"; \
+            label = "LSHIFT"; \
+            #binding-cells = <1>; \
+            flavor = "hold-preferred"; \
+            tapping-term-ms = <200>; \
+            global-quick-tap; \
+            bindings = <&kp>, <&caps_word>; \
+    }
     behaviors {
         // activate other layers
         TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
@@ -181,27 +191,30 @@
             bindings = <&kp>;
         };
 
-        // behavior for the left shift key
-        // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
-        /omit-if-no-ref/ lshift: lshift {
-            compatible = "zmk,behavior-mod-morph";
-            label = "LSHIFT";
-            #binding-cells = <0>;
-            bindings = <&kp LSHFT>, <&caps_word>;
-            mods = <(MOD_LSFT)>;
-            keep-mods = <(MOD_LSFT)>;
-        };
+        SHIFT(lshift, LSHIFT)
+        SHIFT(rshift, RSHIFT)
 
-        // behavior for the left shift key
-        // right shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
-        /omit-if-no-ref/ rshift: rshift {
-            compatible = "zmk,behavior-mod-morph";
-            label = "RSHIFT";
-            #binding-cells = <0>;
-            bindings = <&kp RSHFT>, <&caps_word>;
-            mods = <(MOD_RSFT)>;
-            keep-mods = <(MOD_RSFT)>;
-        };
+        // // behavior for the left shift key
+        // // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
+        // /omit-if-no-ref/ lshift: lshift {
+        //     compatible = "zmk,behavior-mod-morph";
+        //     label = "LSHIFT";
+        //     #binding-cells = <0>;
+        //     bindings = <&kp LSHFT>, <&caps_word>;
+        //     mods = <(MOD_LSFT)>;
+        //     keep-mods = <(MOD_LSFT)>;
+        // };
+
+        // // behavior for the left shift key
+        // // right shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
+        // /omit-if-no-ref/ rshift: rshift {
+        //     compatible = "zmk,behavior-mod-morph";
+        //     label = "RSHIFT";
+        //     #binding-cells = <0>;
+        //     bindings = <&kp RSHFT>, <&caps_word>;
+        //     mods = <(MOD_RSFT)>;
+        //     keep-mods = <(MOD_RSFT)>;
+        // };
 
         // shifting Numberic Keypad "2" gives "<"
         two_gt: two_gt {
@@ -352,7 +365,7 @@
        &trans      &kp EXCL      &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                                 &kp FSLH   &kp KP_N7     &kp KP_N8     &kp KP_N9     &kp KP_MINUS   &kp SCROLLLOCK
        &trans     &kp CARET    &kp AMPS    &kp LBKT  &kp LBRC   &kp LPAR                                                                &kp EQUAL   &kp KP_N4     &kp KP_N5     &kp KP_N6     &kp KP_MINUS          &kp INS
        &trans     &kp UNDER    &kp PIPE    &kp RBKT  &kp RBRC   &kp RPAR   &to 0  &trans  &trans  &trans  &trans      &to 0              &kp STAR   &kp KP_N1       &two_gt     &three_gt      &kp KP_PLUS           &trans
-   &magic 2 0        &trans      &trans      &trans    &trans             &trans  &trans  &trans  &trans  &trans  &kp KP_N0                            &kp N0     &kp COMMA    &kp KP_DOT     &kp KP_ENTER           &left_arrow EQUAL
+   &magic 2 0        &trans      &trans      &trans    &trans             &trans  &trans  &trans  &trans  &trans  &kp KP_N0                            &kp N0     &kp COMMA    &kp KP_DOT     &kp KP_ENTER           &trans
             >;
         };
 
