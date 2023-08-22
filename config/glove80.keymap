@@ -191,8 +191,8 @@
             bindings = <&kp>;
         };
 
-        SHIFT(lshift, LSHIFT)
-        SHIFT(rshift, RSHIFT)
+        SHIFT(lshift, LSHIFT);
+        SHIFT(rshift, RSHIFT);
 
         // // behavior for the left shift key
         // // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
