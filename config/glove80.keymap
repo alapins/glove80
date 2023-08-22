@@ -192,11 +192,11 @@
         };
 
         rshift:rshift {
-            &shift RSHIFT RSHIFT
+            &shift RSHIFT RSHIFT;
         };
 
         lshift:lshift {
-            &shift LSHIFT LSHIFT
+            &shift LSHIFT LSHIFT;
         };
 
         // // behavior for the left shift key
