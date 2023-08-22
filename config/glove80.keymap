@@ -191,14 +191,6 @@
             bindings = <&kp>, <&caps_word>; 
         };
 
-        rshift:rshift {
-            &shift RSHIFT RSHIFT;
-        };
-
-        lshift:lshift {
-            &shift LSHIFT LSHIFT;
-        };
-
         // // behavior for the left shift key
         // // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
         // /omit-if-no-ref/ lshift: lshift {
@@ -337,7 +329,7 @@
     &kp TAB      &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O      &kp P   &kp BSLH
     &kp ESC      &kp A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L   &kp SEMI    &kp SQT
   &kp GRAVE      &kp Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower  &kp LGUI  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT   &kp FSLH  &kp PG_UP
- &magic 5 0    &lshift  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp RALT       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &rshift  &kp PG_DN
+ &magic 5 0    &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp RALT       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
             >;
         };
 
