@@ -181,24 +181,24 @@
             bindings = <&kp>;
         };
 
-        rshift: rshift { \
-            compatible = "zmk,behavior-hold-tap"; \
-            label = "RSHIFT"; \
-            #binding-cells = <0>; \
-            flavor = "hold-preferred"; \
-            tapping-term-ms = <200>; \
-            global-quick-tap; \
-            bindings = <&kp RSHFT>, <&caps_word>; \
+        rshift: rshift { 
+            compatible = "zmk,behavior-hold-tap"; 
+            label = "RSHIFT"; 
+            #binding-cells = <0>; 
+            flavor = "hold-preferred"; 
+            tapping-term-ms = <200>; 
+            global-quick-tap; 
+            bindings = <&kp RSHFT>, <&caps_word>; 
         };
 
-        lshift: lshift { \
-            compatible = "zmk,behavior-hold-tap"; \
-            label = "LSHIFT"; \
-            #binding-cells = <0>; \
-            flavor = "hold-preferred"; \
-            tapping-term-ms = <200>; \
-            global-quick-tap; \
-            bindings = <&kp LSHFT>, <&caps_word>; \
+        lshift: lshift { 
+            compatible = "zmk,behavior-hold-tap"; 
+            label = "LSHIFT"; 
+            #binding-cells = <0>; 
+            flavor = "hold-preferred"; 
+            tapping-term-ms = <200>; 
+            global-quick-tap; 
+            bindings = <&kp LSHFT>, <&caps_word>; 
         };
 
         // // behavior for the left shift key
