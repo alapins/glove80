@@ -95,6 +95,9 @@
     #define L_MOVEMENT_LED 2
     #define L_SYMBOL 3
     #define L_MOVEMENT 4
+    #define L_SYMBOL_LEFT 5
+    #define L_MOVEMENT_RIGHT 6
+
 
 /*****************************************************************************/
                                 /* Macros */
@@ -143,6 +146,41 @@
                 , <&macro_tap &kp GREATER_THAN>
                 ;
         };
+        to_symbol: to_symbol {
+            compatible = "zmk,behavior-macro";
+            label = "TO_SYMBOL";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &rgb_ug RGB_COLOR_HSB(255,100,40)>
+                , <&macro_tap &rgb_ug RGB_ON>
+                , <&macro_tap &to L_SYMBOL>
+                ;
+        };
+        to_movement: to_movement {
+            compatible = "zmk,behavior-macro";
+            label = "TO_MOVEMENT";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &rgb_ug RGB_COLOR_HSB(138,100,40)>
+                , <&macro_tap &rgb_ug RGB_ON>
+                , <&macro_tap &to L_MOVEMENT>
+                ;
+        };
+        to_base: to_base {
+            compatible = "zmk,behavior-macro";
+            label = "TO_BASE";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings
+                = <&macro_tap &rgb_ug RGB_OFF>
+                , <&macro_tap &to L_BASE>
+                ;
+        };
 
     };
 /*****************************************************************************/
@@ -163,8 +201,8 @@
 
     behaviors {
         // activate other layers
-        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to L_SYMBOL);
-        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to L_MOVEMENT);
+        TAP_DANCE(td_symbol, 200, &mo L_SYMBOL, &to_symbol);
+        TAP_DANCE(td_movement, 200, &mo L_MOVEMENT, &to_movement);
 
         /* Let Caps Word continue when typing underscores */
         behavior_caps_word {
@@ -190,28 +228,6 @@
             global-quick-tap; 
             bindings = <&kp>, <&caps_word>; 
         };
-
-        // // behavior for the left shift key
-        // // left shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
-        // /omit-if-no-ref/ lshift: lshift {
-        //     compatible = "zmk,behavior-mod-morph";
-        //     label = "LSHIFT";
-        //     #binding-cells = <0>;
-        //     bindings = <&kp LSHFT>, <&caps_word>;
-        //     mods = <(MOD_LSFT)>;
-        //     keep-mods = <(MOD_LSFT)>;
-        // };
-
-        // // behavior for the left shift key
-        // // right shift is sticky on tap (may be deactivated with a second tap) or a normal shift otherwise
-        // /omit-if-no-ref/ rshift: rshift {
-        //     compatible = "zmk,behavior-mod-morph";
-        //     label = "RSHIFT";
-        //     #binding-cells = <0>;
-        //     bindings = <&kp RSHFT>, <&caps_word>;
-        //     mods = <(MOD_RSFT)>;
-        //     keep-mods = <(MOD_RSFT)>;
-        // };
 
         // shifting Numberic Keypad "2" gives "<"
         two_gt: two_gt {
@@ -294,6 +310,21 @@
             layers = <L_SYMBOL>;
             bindings = <&right_arrow EQUAL>;
         };
+
+        // use chord DF as a modifier move to movement_right layer
+        combo_df_modal_movement {
+            timeout-ms = <65>;
+            key-positions = <37 38>;
+            bindings = <&mo L_MOVEMENT_RIGHT>;
+        };
+
+        // use chord DF as a modifier move to movement_right layer
+        combo_jk_modal_movement {
+            timeout-ms = <65>;
+            key-positions = <41 42>;
+            bindings = <&mo L_SYMBOL_LEFT>;
+        };
+
    };
 
 /*****************************************************************************/
@@ -329,7 +360,7 @@
     &kp TAB      &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O      &kp P   &kp BSLH
     &kp ESC      &kp A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L   &kp SEMI    &kp SQT
   &kp GRAVE      &kp Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower  &kp LGUI  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT   &kp FSLH  &kp PG_UP
- &magic 5 0    &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp RALT       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
+ &magic 7 0    &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp RALT       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
             >;
         };
 
@@ -357,23 +388,45 @@
 
         layer_Symbol {
             bindings = <
- &kp C_BRI_DN  &kp C_BRI_UP  &kp C_PREV  &kp C_NEXT  &kp C_PP                                                                                      &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP            &none  &kp PAUSE_BREAK
-       &trans         &none       &none       &none     &none   &kp HOME                                                     &kp LEFT_PARENTHESIS  &kp KP_NUM      &kp BSPC  &kp KP_SLASH  &kp KP_MULTIPLY  &kp PRINTSCREEN
-       &trans      &kp EXCL      &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                                 &kp FSLH   &kp KP_N7     &kp KP_N8     &kp KP_N9     &kp KP_MINUS   &kp SCROLLLOCK
-       &trans     &kp CARET    &kp AMPS    &kp LBKT  &kp LBRC   &kp LPAR                                                                &kp EQUAL   &kp KP_N4     &kp KP_N5     &kp KP_N6     &kp KP_MINUS          &kp INS
-       &trans     &kp UNDER    &kp PIPE    &kp RBKT  &kp RBRC   &kp RPAR   &to 0  &trans  &trans  &trans  &trans      &to 0              &kp STAR   &kp KP_N1       &two_gt     &three_gt      &kp KP_PLUS           &trans
-   &magic 2 0        &trans      &trans      &trans    &trans             &trans  &trans  &trans  &trans  &trans  &kp KP_N0                            &kp N0     &kp COMMA    &kp KP_DOT     &kp KP_ENTER           &trans
+ &kp C_BRI_DN  &kp C_BRI_UP  &kp C_PREV  &kp C_NEXT  &kp C_PP                                                                                        &kp C_MUTE  &kp C_VOL_DN  &kp C_VOL_UP            &none  &kp PAUSE_BREAK
+       &trans         &none       &none       &none     &none   &kp HOME                                                       &kp LEFT_PARENTHESIS  &kp KP_NUM      &kp BSPC  &kp KP_SLASH  &kp KP_MULTIPLY  &kp PRINTSCREEN
+       &trans      &kp EXCL      &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                                   &kp FSLH   &kp KP_N7     &kp KP_N8     &kp KP_N9     &kp KP_MINUS   &kp SCROLLLOCK
+       &trans     &kp CARET    &kp AMPS    &kp LBKT  &kp LBRC   &kp LPAR                                                                  &kp EQUAL   &kp KP_N4     &kp KP_N5     &kp KP_N6     &kp KP_MINUS          &kp INS
+       &trans     &kp UNDER    &kp PIPE    &kp RBKT  &kp RBRC   &kp RPAR  &to_base  &trans  &trans  &trans  &trans   &to_base              &kp STAR   &kp KP_N1       &two_gt     &three_gt      &kp KP_PLUS           &trans
+       &trans        &trans      &trans      &trans    &trans             &trans    &trans  &trans  &trans  &trans  &kp KP_N0                            &kp N0     &kp COMMA    &kp KP_DOT     &kp KP_ENTER           &trans
             >;
         };
 
         layer_Movement {
             bindings = <
-        &trans     &trans         &trans         &trans     &trans                                                                                         &trans      &trans         &trans  &trans  &trans
-        &trans     &trans         &trans         &trans     &trans    &kp C_MUTE                                                             &trans        &trans      &trans         &trans  &trans  &trans
-        &trans     &trans  &kp LC(RIGHT)  &kp LC(RIGHT)  &kp LC(R)  &kp C_VOL_UP                                                       &kp LC(LEFT)  &kp LC(DOWN)  &kp LC(UP)  &kp LC(RIGHT)  &trans  &trans
-        &trans  &kp LC(A)      &kp LC(S)      &kp LC(D)  &kp LC(F)  &kp C_VOL_DN                                                           &kp LEFT      &kp DOWN      &kp UP      &kp RIGHT  &trans  &trans
- &kp LC(LS(Z))  &kp LC(Z)      &kp LC(X)      &kp LC(C)  &kp LC(V)  &kp LC(LEFT)   &trans   &to 0  &trans  &trans   &to 0  &td_symbol      &kp HOME     &kp PG_DN   &kp PG_UP        &kp END  &trans  &trans
-        &trans     &trans         &trans         &trans     &trans                 &trans  &trans  &trans  &trans  &trans      &trans                      &trans      &trans         &trans  &trans  &trans
+        &trans     &trans         &trans         &trans     &trans                                                                                             &trans      &trans         &trans  &trans  &trans
+        &trans     &trans         &trans         &trans     &trans    &kp C_MUTE                                                                 &trans        &trans      &trans         &trans  &trans  &trans
+        &trans     &trans  &kp LC(RIGHT)  &kp LC(RIGHT)  &kp LC(R)  &kp C_VOL_UP                                                           &kp LC(LEFT)  &kp LC(DOWN)  &kp LC(UP)  &kp LC(RIGHT)  &trans  &trans
+        &trans  &kp LC(A)      &kp LC(S)      &kp LC(D)  &kp LC(F)  &kp C_VOL_DN                                                               &kp LEFT      &kp DOWN      &kp UP      &kp RIGHT  &trans  &trans
+ &kp LC(LS(Z))  &kp LC(Z)      &kp LC(X)      &kp LC(C)  &kp LC(V)  &kp LC(LEFT)   &trans  &to_base  &trans  &trans  &to_base  &td_symbol      &kp HOME     &kp PG_DN   &kp PG_UP        &kp END  &trans  &trans
+        &trans     &trans         &trans         &trans     &trans                 &trans    &trans  &trans  &trans    &trans      &trans                      &trans      &trans         &trans  &trans  &trans
+            >;
+        };
+
+        layer_symbol_left {
+            bindings = <
+ &kp C_BRI_DN  &kp C_BRI_UP  &kp C_PREV  &kp C_NEXT  &kp C_PP                                                                    &trans  &trans  &trans  &trans  &trans 
+       &trans         &none       &none       &none     &none   &kp HOME                                                 &trans  &trans  &trans  &trans  &trans  &trans
+       &trans      &kp EXCL      &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                                                 &trans  &trans  &trans  &trans  &trans  &trans
+       &trans     &kp CARET    &kp AMPS    &kp LBKT  &kp LBRC   &kp LPAR                                                  &kp J   &kp K  &trans  &trans  &trans  &trans
+       &trans     &kp UNDER    &kp PIPE    &kp RBKT  &kp RBRC   &kp RPAR  &trans  &trans  &trans &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+       &trans        &trans      &trans      &trans    &trans             &trans  &trans  &trans &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        layer_Movement_right {
+            bindings = <
+       &trans  &trans          &trans  &trans  &trans                                                                                 &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans                                                           &trans        &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans                                                     &kp LC(LEFT)  &kp LC(DOWN)  &kp LC(UP)  &kp LC(RIGHT)  &trans  &trans
+       &trans  &trans  &kp LEFT_SHIFT   &kp D   &kp F  &trans                                                         &kp LEFT      &kp DOWN      &kp UP      &kp RIGHT  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans        &kp HOME     &kp PG_DN   &kp PG_UP        &kp END  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans                        &trans      &trans         &trans  &trans  &trans
             >;
         };
 
@@ -384,7 +437,7 @@
        &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none           &none
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
   &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
-       &none            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &to 5
+      &trans            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &to 7
             >;
         };
 
