@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: moergo-sc/zmk
-          ref: zephyr-3-5-alpha
+          ref: main
           path: src
       - uses: cachix/install-nix-action@v20
         with:
