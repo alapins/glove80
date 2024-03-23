@@ -97,6 +97,7 @@
     #define L_MOVEMENT 4
     #define L_SYMBOL_LEFT 5
     #define L_MOVEMENT_RIGHT 6
+    #define L_MOVEMENT_RIGHT_ALT_CTRL 7
 
 
 /*****************************************************************************/
@@ -310,7 +311,7 @@
             layers = <L_SYMBOL>;
             bindings = <&right_arrow EQUAL>;
         };
-
+        
         // use chord DF as a modifier move to movement_right layer
         combo_df_modal_movement {
             timeout-ms = <65>;
@@ -318,7 +319,14 @@
             bindings = <&mo L_MOVEMENT_RIGHT>;
         };
 
-        // use chord DF as a modifier move to movement_right layer
+        // use chord CV as a modifier move to movement_right layer
+        combo_df_modal_movement {
+            timeout-ms = <65>;
+            key-positions = <49 50>;
+            bindings = <&mo L_MOVEMENT_RIGHT_ALT_CTRL>;
+        };
+
+        // use chord JK as a modifier move to symbol_left layer
         combo_jk_modal_movement {
             timeout-ms = <65>;
             key-positions = <41 42>;
@@ -358,9 +366,9 @@
      &kp F1                 &kp F2    &kp F3    &kp F4     &kp F5                                                                                               &kp F6     &kp F7    &kp F8                  &kp F9    &kp F10
   &kp EQUAL                 &kp N1    &kp N2    &kp N3     &kp N4  &kp N5                                                                            &kp N6     &kp N7     &kp N8    &kp N9                  &kp N0  &kp MINUS
     &kp TAB                  &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O                   &kp P   &kp BSLH
-    &kp ESC                  &kp A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L                &kp SEMI    &kp SQT
-  &kp GRAVE           &mt LSHIFT Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower  &kp LGUI  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT         &mt RSHIFT FSLH  &kp PG_UP
- &magic 7 0   &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp RALT       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
+    &kp ESC                  &kp A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L                 &kp SQT   &kp SEMI
+  &kp GRAVE           &mt LSHIFT Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower   &kp DEL  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT         &mt RSHIFT FSLH  &kp PG_UP
+ &magic 8 0   &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp BSPC       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
             >;
         };
 
@@ -430,6 +438,17 @@
             >;
         };
 
+        layer_Movement_right_alt_ctrl {
+            bindings = <
+       &trans  &trans          &trans  &trans  &trans                                                                                 &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans                                                           &trans        &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans                                                     &kp LC(LA(LS(LEFT)))  &kp LC(LA(LS(DOWN)))  &kp LC(LA(LS(UP)))  &kp LC(LA(LS(RIGHT)))  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans  &trans                                                         &kp LC(LA(LEFT))      &kp LC(LA(DOWN))      &kp LC(LA(UP))      &kp LC(LA(RIGHT))  &trans  &trans
+       &trans  &trans  &kp LEFT_SHIFT   &kp C   &kp V  &trans   &trans  &trans  &trans  &trans  &trans  &trans        &kp LC(LA(HOME))     &kp LC(LA(PG_DN))   &kp LC(LA(PG_UP))        &kp LC(LA(END))  &trans  &trans
+       &trans  &trans          &trans  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans                        &trans      &trans         &trans  &trans  &trans
+            >;
+        };
+
         layer_Magic {
             bindings = <
   &bt BT_CLR            &none            &none            &none            &none                                                                                  &none   &none   &none   &none  &bt BT_CLR_ALL
@@ -437,7 +456,7 @@
        &none  &rgb_ug RGB_SPI  &rgb_ug RGB_SAI  &rgb_ug RGB_HUI  &rgb_ug RGB_BRI  &rgb_ug RGB_TOG                                                         &none   &none   &none   &none   &none           &none
  &bootloader  &rgb_ug RGB_SPD  &rgb_ug RGB_SAD  &rgb_ug RGB_HUD  &rgb_ug RGB_BRD  &rgb_ug RGB_EFF                                                         &none   &none   &none   &none   &none     &bootloader
   &sys_reset            &none            &none            &none            &none            &none   &bt_2   &bt_3         &none   &none   &none   &none   &none   &none   &none   &none   &none      &sys_reset
-      &trans            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &to 7
+      &trans            &none            &none            &none            &none                    &bt_0   &bt_1  &out OUT_USB   &none   &none   &none           &none   &none   &none   &none           &to 8
             >;
         };
 
