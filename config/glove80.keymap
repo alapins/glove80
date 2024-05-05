@@ -249,8 +249,6 @@
         };
     };
 
-
-
 /*****************************************************************************/
                                 /* Key Positions */
 /*****************************************************************************/
@@ -294,8 +292,8 @@
             key-positions = <61 44>;
             layers = <L_SYMBOL>;
             bindings = <&right_arrow KP_MINUS>;
-        };
-
+        }; 
+        
         // <= on num layer
         combo_double_left_arrow {
             timeout-ms = <65>;
@@ -311,33 +309,38 @@
             layers = <L_SYMBOL>;
             bindings = <&right_arrow EQUAL>;
         };
-        
+   
         // use chord DF as a modifier move to movement_right layer
-        combo_df_modal_movement {
-            timeout-ms = <65>;
-            key-positions = <37 38>;
-            bindings = <&mo L_MOVEMENT_RIGHT>;
-        };
+        //combo_df_modal_movement {
+        //    timeout-ms = <65>;
+        //    key-positions = <37 38>;
+        //    bindings = <&mo L_MOVEMENT_RIGHT>;
+        //    layers = <L_BASE>;
+        //};
 
         // use chord CV as a modifier move to movement_right layer
-        combo_cv_modal_movement {
-            timeout-ms = <65>;
-            key-positions = <49 50>;
-            bindings = <&mo L_MOVEMENT_RIGHT_ALT_CTRL>;
-        };
+        //combo_cv_modal_movement {
+        //    timeout-ms = <65>;
+        //    key-positions = <49 50>;
+        //    bindings = <&mo L_MOVEMENT_RIGHT_ALT_CTRL>;
+        //    layers = <L_BASE>;
+        //};
 
         // use chord JK as a modifier move to symbol_left layer
-        combo_jk_modal_movement {
-            timeout-ms = <65>;
-            key-positions = <41 42>;
-            bindings = <&mo L_SYMBOL_LEFT>;
-        };
-
+        //combo_jk_modal_movement {
+        //    timeout-ms = <65>;
+        //    key-positions = <41 42>;
+        //    bindings = <&mo L_SYMBOL_LEFT>;
+        //    layers = <L_BASE>;
+        //};
    };
 
 /*****************************************************************************/
                             /* Condiional Layers */
-/*****************************************************************************/ /* Helper for defining conditional layers */ #define LAYER_CONDITION(NAME, IF, THEN) \
+/*****************************************************************************/ 
+
+/* Helper for defining conditional layers */
+#define LAYER_CONDITION(NAME, IF, THEN) \
         NAME { \
             if-layers = <IF>; \
             then-layer = <THEN>; \
@@ -364,7 +367,7 @@
      &kp F1                 &kp F2    &kp F3    &kp F4     &kp F5                                                                                               &kp F6     &kp F7    &kp F8                  &kp F9    &kp F10
   &kp EQUAL                 &kp N1    &kp N2    &kp N3     &kp N4  &kp N5                                                                            &kp N6     &kp N7     &kp N8    &kp N9                  &kp N0  &kp MINUS
     &kp TAB                  &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O                   &kp P   &kp BSLH
-    &kp ESC                  &kp A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L                 &kp SQT   &kp SEMI
+    &kp ESC &lt L_MOVEMENT_RIGHT A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L   &lt L_SYMBOL_LEFT SQT   &kp SEMI
   &kp GRAVE           &mt LSHIFT Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower   &kp DEL  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT         &mt RSHIFT FSLH  &kp PG_UP
  &magic 8 0   &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp BSPC       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
             >;
