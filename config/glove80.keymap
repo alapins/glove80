@@ -153,9 +153,7 @@
             wait-ms = <0>;
             tap-ms = <30>;
             bindings
-                = <&macro_tap &rgb_ug RGB_COLOR_HSB(255,100,40)>
-                , <&macro_tap &rgb_ug RGB_ON>
-                , <&macro_tap &to L_SYMBOL>
+                = <&macro_tap &to L_SYMBOL>
                 ;
         };
         to_movement: to_movement {
@@ -165,9 +163,7 @@
             wait-ms = <0>;
             tap-ms = <30>;
             bindings
-                = <&macro_tap &rgb_ug RGB_COLOR_HSB(138,100,40)>
-                , <&macro_tap &rgb_ug RGB_ON>
-                , <&macro_tap &to L_MOVEMENT>
+                = <&macro_tap &to L_MOVEMENT>
                 ;
         };
         to_base: to_base {
@@ -177,8 +173,7 @@
             wait-ms = <0>;
             tap-ms = <30>;
             bindings
-                = <&macro_tap &rgb_ug RGB_OFF>
-                , <&macro_tap &to L_BASE>
+                = <&macro_tap &to L_BASE>
                 ;
         };
 
