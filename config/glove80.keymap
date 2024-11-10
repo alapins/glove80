@@ -91,13 +91,12 @@
 / {
     /* lsyers */
     #define L_BASE 0
-    #define L_SYMBOL_LED 1
-    #define L_MOVEMENT_LED 2
-    #define L_SYMBOL 3
-    #define L_MOVEMENT 4
-    #define L_SYMBOL_LEFT 5
-    #define L_MOVEMENT_RIGHT 6
-    #define L_MOVEMENT_RIGHT_ALT_CTRL 7
+    #define L_SYMBOL 1
+    #define L_MOVEMENT 2
+    #define L_SYMBOL_LEFT 3
+    #define L_MOVEMENT_RIGHT 4
+    #define L_MOVEMENT_RIGHT_ALT_CTRL 5
+    #define L_MAGIC 6
 
 
 /*****************************************************************************/
@@ -348,12 +347,66 @@
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
-
-        /* Turn on Magic LED indicators for thumb layers */
-        LAYER_CONDITION(symbol_led, L_SYMBOL, L_SYMBOL_LED)
-        LAYER_CONDITION(movement_led, L_MOVEMENT, L_MOVEMENT_LED)
     };
  };
+
+// ==== PER-KEY-RGB <section begins> ====
+#include <dt-bindings/zmk/rgb_colors.h>
+#define C_SHIFT 0xffd700
+#define C_SYM 0x7897ba
+#define C_MOV 0x78ba7a
+#define ______ 0x000000
+/ {
+    underglow-layer {
+        compatible  = "zmk,underglow-layer";
+        symbol {
+            bindings = <
+                ______ ______ ______ ______ C_SYM                                                            C_SYM ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______  C_SYM ______ ______  ______ ______  C_SYM ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______        ______ ______ ______  ______ ______ ______        ______ ______ ______ ______ ______
+                >;
+            layer-id = <L_SYMBOL>;
+        };
+        movement {
+            bindings = <
+                ______ ______ ______ ______ C_MOV                                                            C_MOV ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______ ______ C_MOV  ______  ______  C_MOV ______  ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______        ______ ______ ______  ______ ______ ______        ______ ______ ______ ______ ______
+                >;
+            layer-id = <L_MOVEMENT>;
+        };
+        symbol_left {
+            bindings = <
+                ______ ______ ______ ______ C_SYM                                                           ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______ ______ C_SYM  ______  ______ ______ ______ ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______        ______ ______ ______  ______ ______ ______        ______ ______ ______ ______ ______
+                >;
+            layer-id = <L_SYMBOL_LEFT>;
+        };
+        movement_right {
+            bindings = <
+                ______ ______ ______ ______ ______                                                          C_MOV  ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______                                            ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______ ______ ______ ______ ______  ______ C_MOV  ______ ______ ______ ______ ______ ______ ______
+                ______ ______ ______ ______ ______        ______ ______ ______  ______ ______ ______        ______ ______ ______ ______ ______
+                >;
+            layer-id = <L_MOVEMENT_RIGHT>;
+        };
+        // add more RGB layer here
+    };
+};
+// ==== PER-KEY-RGB <section ends> =====
 
 
 / {
@@ -361,37 +414,14 @@
     keymap {
         compatible = "zmk,keymap";
 
-
         layer_Base {
             bindings = <
-     &kp F1                 &kp F2    &kp F3    &kp F4     &kp F5                                                                                               &kp F6     &kp F7    &kp F8                  &kp F9    &kp F10
-  &kp EQUAL                 &kp N1    &kp N2    &kp N3     &kp N4  &kp N5                                                                            &kp N6     &kp N7     &kp N8    &kp N9                  &kp N0  &kp MINUS
-    &kp TAB                  &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O                   &kp P   &kp BSLH
-    &kp ESC &lt L_MOVEMENT_RIGHT A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L   &lt L_SYMBOL_LEFT SQT   &kp SEMI
-  &kp GRAVE           &mt LSHIFT Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower   &kp DEL  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT         &mt RSHIFT FSLH  &kp PG_UP
- &magic 8 0   &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp BSPC       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
-            >;
-        };
-
-        layer_Symbol_LED {
-            bindings = <
-       &trans  &trans  &trans  &trans  &trans                                                                     &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans            &trans  &trans  &trans  &trans  &trans
-            >;
-        };
-
-        layer_Movement_LED {
-            bindings = <
-       &trans  &trans  &trans  &trans  &trans                                                                     &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans                                                     &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-       &trans  &trans  &trans  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans            &trans  &trans  &trans  &trans  &trans
+           &kp F1                 &kp F2    &kp F3    &kp F4     &kp F5                                                                                               &kp F6     &kp F7    &kp F8                  &kp F9    &kp F10
+        &kp EQUAL                 &kp N1    &kp N2    &kp N3     &kp N4  &kp N5                                                                            &kp N6     &kp N7     &kp N8    &kp N9                  &kp N0  &kp MINUS
+          &kp TAB                  &kp Q     &kp W     &kp E      &kp R   &kp T                                                                             &kp Y      &kp U      &kp I     &kp O                   &kp P   &kp BSLH
+          &kp ESC &lt L_MOVEMENT_RIGHT A     &kp S     &kp D      &kp F   &kp G                                                                             &kp H      &kp J      &kp K     &kp L   &lt L_SYMBOL_LEFT SQT   &kp SEMI
+        &kp GRAVE           &mt LSHIFT Z     &kp X     &kp C      &kp V   &kp B    &td_symbol  &td_movement    &lower   &kp DEL  &td_movement  &td_symbol   &kp N      &kp M  &kp COMMA   &kp DOT         &mt RSHIFT FSLH  &kp PG_UP
+ &magic L_MAGIC 0   &shift LSHIFT LSHIFT  &kp LGUI  &kp LALT  &kp LCTRL            &kp BSPC         &kp DEL  &kp LALT  &kp BSPC       &kp RET   &kp SPACE          &kp RCTRL   &kp RALT  &kp LGUI    &shift RSHIFT RSHIFT  &kp PG_DN
             >;
         };
 
@@ -430,12 +460,12 @@
 
         layer_Movement_right {
             bindings = <
-       &trans  &trans          &trans  &trans  &trans                                                                                 &trans      &trans         &trans  &trans  &trans
-       &trans  &trans          &trans  &trans  &trans  &trans                                                           &trans        &trans      &trans         &trans  &trans  &trans
-       &trans  &trans          &trans  &trans  &trans  &trans                                                     &kp LC(LEFT)  &kp LC(DOWN)  &kp LC(UP)  &kp LC(RIGHT)  &trans  &trans
-       &trans  &trans  &kp LEFT_SHIFT   &kp D   &kp F  &trans                                                         &kp LEFT      &kp DOWN      &kp UP      &kp RIGHT  &trans  &trans
-       &trans  &trans          &trans  &trans  &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans        &kp HOME     &kp PG_DN   &kp PG_UP        &kp END  &trans  &trans
-       &trans  &trans          &trans  &trans  &trans           &trans  &trans  &trans  &trans  &trans  &trans                        &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans    &trans     &trans                                                                                 &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans    &trans     &trans  &trans                                                           &trans        &trans      &trans         &trans  &trans  &trans
+       &trans  &trans          &trans    &trans     &trans  &trans                                                     &kp LC(LEFT)  &kp LC(DOWN)  &kp LC(UP)  &kp LC(RIGHT)  &trans  &trans
+       &trans  &trans  &kp LEFT_SHIFT  &kp LALT  &kp LCTRL  &trans                                                         &kp LEFT      &kp DOWN      &kp UP      &kp RIGHT  &trans  &trans
+       &trans  &trans          &trans    &trans     &trans  &trans   &trans  &trans  &trans  &trans  &trans  &trans        &kp HOME     &kp PG_DN   &kp PG_UP        &kp END  &trans  &trans
+       &trans  &trans          &trans    &trans     &trans           &trans  &trans  &trans  &trans  &trans  &trans                        &trans      &trans         &trans  &trans  &trans
             >;
         };
 
